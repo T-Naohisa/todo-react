@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import TodoItem from './TodoItem';
+import TodoItem from 'components/TodoItem';
 
 const TodoList = () => {
   const [tasks, setTasks] = useState<
