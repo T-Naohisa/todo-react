@@ -44,7 +44,9 @@ export default function Home() {
   return (
     <>
       <p className="timestamp text-6xl">{nowTime}</p>
-      <CalendaerPage />
+      <div className="m-5">
+        <CalendaerPage />
+      </div>
     </>
   );
 }
