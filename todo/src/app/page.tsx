@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-
+import { CalendaerPage } from 'components/calender';
 export default function Home() {
   const [nowTime, setNowTime] = useState<string>('');
   useEffect(() => {
@@ -44,6 +44,7 @@ export default function Home() {
   return (
     <>
       <p className="timestamp text-6xl">{nowTime}</p>
+      <CalendaerPage />
     </>
   );
 }

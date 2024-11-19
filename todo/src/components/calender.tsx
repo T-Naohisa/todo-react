@@ -1,5 +1,7 @@
+'use client';
 import React from 'react';
-
+import FullCalendar from '@fullcalendar/react';
+import dayGridPlugin from '@fullcalendar/daygrid';
 export const CalendaerPage = () => {
   /**
    * 今日の日付を取得
@@ -9,5 +11,5 @@ export const CalendaerPage = () => {
    *
    *
    */
-  return <></>;
+  return <FullCalendar plugins={[dayGridPlugin]} initialView="dayGridMonth" />;
 };
