@@ -25,7 +25,5 @@ jobs:
           cache: "npm"
           cache-dependency-path: ./todo/package-lock.json
       # プロジェクトの依存関係をインストール
-      # - name: Install Dependencies
-      #   run: npm ci
-      # - name: install npm
-      #   run: npm install
+      - name: install npm
+        run: npm install
