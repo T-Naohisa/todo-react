@@ -1,18 +1,24 @@
+# ワークフローの名前
 name: frontend_ci
+# トリガーのイベント
 on:
   push:
     branches: [main]
+# 出るとの作業ディレクトリ
 defaults:
   run:
     working-directory: todo
+# ジョブ定義
 jobs:
+  # ジョブ名
   frontend_ci_test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
+        # 使用するバージョンの指定
         node-version: [22.11.0]
     steps:
-      # リポジトリからソースコードの取得
+      #リポジトリからソースコードの取得
       - name: Checkout Repository
         uses: actions/checkout@v4
       # Node.jsのセットアップ
@@ -27,3 +33,6 @@ jobs:
       # プロジェクトの依存関係をインストール
       - name: install npm
         run: npm install
+      # jestの実行
+      - name: jest test
+        run: npm rum test
