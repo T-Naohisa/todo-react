@@ -4,6 +4,7 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin, { DateClickArg } from '@fullcalendar/interaction';
 export const CalendaerPage = () => {
+  // const dateClick = (arg: DateClickArg) => {
   const dateClick = (arg: DateClickArg) => {
     console.log('date click');
     console.log(arg);

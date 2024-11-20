@@ -26,9 +26,20 @@ const config: Config = {
   // The test environment that will be used for testing
   testEnvironment: 'jest-environment-jsdom',
 
-  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
+  preset: 'ts-jest/presets/default-esm',
+  globals: {
+    'ts-jest': {
+      tsconfig: './tsconfig.test.json',
+      useESM: true,
+    },
+  },
+  transform: {
+    '^.+\\.(js|jsx)$': 'babel-jest',
+    '^.+\\.(ts|tsx)$': 'ts-jest',
+  },
+  transformIgnorePatterns: ['/node_modules/(?!@fullcalendar/*).+\\.[t|j]sx?$'],
   moduleNameMapper: {
-    '@/(.*)$': '<rootDir>/src/$1',
+    '^preact(/(.*)|$)': 'preact$1',
   },
 };
 export default createJestConfig(config);
