@@ -13,7 +13,7 @@ describe('app layout display', () => {
     };
     render(<RootLayout>{textMock()}</RootLayout>);
     const display = screen.getByText('testMock');
-    screen.debug(display);
+    //screen.debug(display);
     expect(display).toBeVisible();
   });
 });
