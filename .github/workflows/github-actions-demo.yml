@@ -3,7 +3,7 @@ name: frontend_ci
 # トリガーのイベント
 on:
   push:
-    branches: [main]
+    branches: [main, dev]
 # 出るとの作業ディレクトリ
 defaults:
   run:
