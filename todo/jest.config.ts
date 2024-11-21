@@ -26,7 +26,7 @@ const config: Config = {
   // The test environment that will be used for testing
   testEnvironment: 'jest-environment-jsdom',
 
-  preset: 'ts-jest/presets/default-esm',
+  preset: 'ts-jest',
   globals: {
     'ts-jest': {
       tsconfig: './tsconfig.test.json',
@@ -37,7 +37,7 @@ const config: Config = {
     '^.+\\.(js|jsx)$': 'babel-jest',
     '^.+\\.(ts|tsx)$': 'ts-jest',
   },
-  transformIgnorePatterns: ['/node_modules/(?!@fullcalendar/*).+\\.[t|j]sx?$'],
+  // transformIgnorePatterns: ['/node_modules/(?!@fullcalendar/*).+\\.[t|j]sx?$'],
   moduleNameMapper: {
     '^preact(/(.*)|$)': 'preact$1',
   },
