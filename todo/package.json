@@ -7,9 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:shot": "jest --updateSnapshot"
+    "test": "jest --no-cache",
+    "test:watch": "jest --watch --no-cache",
+    "test:shot": "jest --updateSnapshot --no-cache"
   },
   "dependencies": {
     "@fullcalendar/core": "^6.1.15",
