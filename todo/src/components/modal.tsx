@@ -9,6 +9,11 @@ type Props = {
   close: () => void;
 };
 
+/**
+ *
+ * @param props
+ * @returns
+ */
 export const Modal = (props: Props) => {
   const [title, setTitle] = useState<string>('');
   const [discribe, setDiscribe] = useState<string>('');
