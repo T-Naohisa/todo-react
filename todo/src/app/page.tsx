@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { CalendaerPage } from 'components/calender';
-import { Modal } from 'components/Modal';
+import { Modal } from 'components/modal';
 export default function Home() {
   const [nowTime, setNowTime] = useState<string>('');
   const [isOpen, setIsOpen] = useState<boolean>(false);
