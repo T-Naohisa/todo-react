@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 
 type Props = {
   isOpen: boolean;
-  submit: (title: string, discribe: string) => void;
+  submit: (title: string, describe: string) => void;
   close: () => void;
 };
 
@@ -16,13 +16,13 @@ type Props = {
  */
 export const Modal = (props: Props) => {
   const [title, setTitle] = useState<string>('');
-  const [discribe, setDiscribe] = useState<string>('');
+  const [describe, setdescribe] = useState<string>('');
 
   const inputChangeTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
   };
-  const inputChangeDiscribe = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setDiscribe(event.target.value);
+  const inputChangedescribe = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setdescribe(event.target.value);
   };
   return (
     <>
@@ -48,6 +48,7 @@ export const Modal = (props: Props) => {
               <Input
                 type="text"
                 name="title"
+                aria-label="title"
                 value={title}
                 onChange={(e) => {
                   inputChangeTitle(e);
@@ -60,10 +61,11 @@ export const Modal = (props: Props) => {
               <p className="mt-2 text-sm/6 text-black">詳細内容</p>
               <Input
                 type="text"
-                name="discribe"
-                value={discribe}
+                name="describe"
+                aria-label="describe"
+                value={describe}
                 onChange={(e) => {
-                  inputChangeDiscribe(e);
+                  inputChangedescribe(e);
                 }}
                 className={clsx(
                   'mt-3 block w-full rounded-lg border-none bg-black/5 py-1.5 px-3 text-sm/6 text-black',
@@ -74,7 +76,7 @@ export const Modal = (props: Props) => {
                 <Button
                   className="inline-flex items-center gap-2 rounded-md bg-gray-700 py-1.5 px-3 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[focus]:outline-1 data-[focus]:outline-white data-[open]:bg-gray-700"
                   onClick={() => {
-                    props.submit(title, discribe);
+                    props.submit(title, describe);
                   }}
                 >
                   登録

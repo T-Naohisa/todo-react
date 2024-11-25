@@ -65,7 +65,7 @@ export default function Home() {
 
     return `${year}/${month}/${days} ${hour}:${min}`;
   };
-  const open = () => {
+  const openModal = () => {
     setIsOpen(true);
   };
   const submit = (title: string, disribe: string) => {
@@ -96,7 +96,7 @@ export default function Home() {
         <CalendaerPage event={eventList} url="/" />
         <button
           onClick={() => {
-            open();
+            openModal();
           }}
         >
           test
