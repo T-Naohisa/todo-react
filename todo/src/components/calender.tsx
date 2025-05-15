@@ -1,16 +1,13 @@
 'use client';
-import React from 'react';
+import React, { use, useEffect, useState } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin, { DateClickArg } from '@fullcalendar/interaction';
-import { EventSourceInput, DateSelectArg } from '@fullcalendar/core/index.js';
+import { EventSourceInput } from '@fullcalendar/core/index.js';
+import { Modal } from 'components/modal';
 
-type Props = {
-  event: Events[];
-  url: string;
-};
-type Events = {
-  id: number;
+export type Events = {
+  id?: number;
   title: string;
   description: string;
   start: string;
@@ -19,35 +16,90 @@ type Events = {
   editable: boolean;
 };
 
-export const CalendaerPage = (props: Props) => {
-  console.log('eventupdate render:' + props.event);
+export const CalendaerPage = () => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [eventList, setEventsList] = useState<Events[]>([]);
+  const [newEvent, setNewEvent] = useState<Events>({
+    title: 'a',
+    description: 'a',
+    start: '',
+    end: '',
+    backgroundColor: 'red',
+    editable: true,
+  });
+  useEffect(() => {
+    setEventsList([
+      {
+        title: 'test',
+        description: 'test',
+        start: '2025-05-23',
+        end: '2025-05-23',
+        backgroundColor: 'green',
+        editable: true,
+      },
+      {
+        title: 'sample2',
+        description: 'sample2',
+        start: '2025-05-24',
+        end: '2025-05-26',
+        backgroundColor: 'green',
+        editable: true,
+      },
+    ]);
+  }, []);
+
+  /**
+   * 日付をクリックしたときに発火する
+   * @param arg
+   */
   const dateClick = (arg: DateClickArg) => {
-    console.log('date click');
-    console.log(arg);
+    openModal();
     const date = arg.dateStr;
-    const month = date.slice(5, 7);
-    const days = date.slice(8, 10);
-    console.log(month, days);
-    console.log(props.event[0]?.id);
-    console.log(props.event[1]?.id);
+    setNewEvent((prevEvent) => ({
+      ...prevEvent,
+      start: date,
+      end: date,
+    }));
   };
 
-  const handleDateSelect = (selectInfo: DateSelectArg) => {
-    //テキスト入力が可能なダイアログを表示する
-    const title = prompt('Please enter a new title for your event');
-    const calendarApi = selectInfo.view.calendar;
+  /**
+   * モーダルを開く
+   */
+  const openModal = () => {
+    setIsOpen(true);
+  };
 
-    calendarApi.unselect(); // clear date selection
+  /**
+   * モーダルを閉じる
+   */
+  const close = () => {
+    setIsOpen(false);
+  };
 
-    if (title) {
-      calendarApi.addEvent({
-        id: '2',
-        title: 'test3',
-        start: selectInfo.startStr,
-        end: selectInfo.endStr,
-        allDay: selectInfo.allDay,
-      });
-    }
+  /**
+   * モーダルのsubmitボタンが押されたときに発火する
+   * @param titles
+   * @param disribes
+   */
+  const submit = (titles: string, disribes: string) => {
+    // イベント情報を更新する
+    setNewEvent((prevEvent) => ({
+      ...prevEvent,
+      title: titles,
+      description: disribes,
+    }));
+    // イベントリストに追加するオブジェクトを作成する
+    const newEvents = {
+      title: titles,
+      description: disribes,
+      start: newEvent.start,
+      end: newEvent.end,
+      backgroundColor: 'red',
+      editable: true,
+    };
+    // イベントリストに追加する
+    setEventsList([...eventList, newEvents]);
+    setIsOpen(false);
   };
 
   return (
@@ -56,11 +108,19 @@ export const CalendaerPage = (props: Props) => {
         plugins={[dayGridPlugin, interactionPlugin]}
         dateClick={dateClick} // 日付をクリックしたときに発火する
         initialView="dayGridMonth"
-        events={props.event as EventSourceInput}
+        events={eventList as EventSourceInput}
         selectable={true} //クリックしてドラックができるようにする
         editable={true} //カレンダー上のイベントを変更できるようにする
-        select={handleDateSelect} //日付や時刻が選択されたときに発火する
+        locale={'ja'} //日本語化
       />
+      <button
+        onClick={() => {
+          openModal();
+        }}
+      >
+        test
+      </button>
+      <Modal isOpen={isOpen} close={close} submit={submit} />
     </>
   );
 };

@@ -2,6 +2,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import React from 'react';
 import Home from '../../src/app/page';
+import { describe } from 'node:test';
 
 describe('app page display', () => {
   it('ページ画面がレンダリングされていることをテストする', () => {
@@ -29,11 +30,9 @@ describe('app page display', () => {
 
     const title = screen.getByRole('textbox', { name: /title/i });
     fireEvent.change(title, { value: 'testTitle' });
-    screen.debug(title);
 
     const describe = screen.getByRole('textbox', { name: /describe/i });
     fireEvent.change(describe, { value: 'testDescribe' });
-    screen.debug(describe);
 
     const closeBtn = screen.getByRole('button', { name: '登録' });
     expect(closeBtn).toBeVisible();
