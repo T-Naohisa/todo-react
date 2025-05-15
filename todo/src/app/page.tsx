@@ -1,8 +1,10 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { CalendaerPage } from 'components/calender';
+
 export default function Home() {
   const [nowTime, setNowTime] = useState<string>('');
+
   useEffect(() => {
     getTime();
     setTime();
@@ -33,7 +35,7 @@ export default function Home() {
    */
   const dateFormat = (date: Date) => {
     const year = date.getFullYear();
-    const month = date.getMonth();
+    const month = date.getMonth() + 1;
     const days = date.getDate();
     const hour = date.getHours();
     const min = date.getMinutes();
