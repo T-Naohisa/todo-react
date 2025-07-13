@@ -15,6 +15,9 @@ export const Sidebar = () => {
       <p>
         <Link href="/sample">sample</Link>
       </p>
+      <p>
+        <Link href="/quotes">quotes</Link>
+      </p>
     </>
   );
 };
