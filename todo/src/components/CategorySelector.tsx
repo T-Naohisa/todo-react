@@ -4,7 +4,6 @@ import { Category } from 'app/types/types';
 
 // カテゴリとsetCategoryを引数で受け取る
 type Props = {
-  category: Category;
   onChange: (category: Category) => void;
 };
 
