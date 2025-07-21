@@ -3,26 +3,43 @@ import React, { useState, useEffect } from 'react';
 import CategorySelector from 'components/CategorySelector';
 import { Category, Quote } from 'app/types/types';
 import { QuoteCard } from 'components/QuoteCard';
-import rawQuotes from 'json/Quote.json';
 
 export const QuotePage = () => {
   const [category, setCategory] = useState<Category>('all');
   const [quote, setQuote] = useState<Quote | null>(null);
-  // jsonからのデータを型に合わせるようにする
-  const quotes = rawQuotes as Quote[];
+  const [quoteList, setQuoteList] = useState<Quote[]>([]);
 
+  // 初期化時にAPIから名言を取得する
   useEffect(() => {
-    refreshQuote();
-  }, [category]);
+    const fetchQuotes = async () => {
+      const res = await fetch('api/quotes');
+      const data = await res.json();
+      setQuoteList(data);
+    };
+    fetchQuotes();
+  }, []);
 
   // ボタンで選んだカテゴリの名言をフィルタリングする
   const getFilteredQuotes = (category: Category): Quote[] => {
-    return quotes.filter((q) => q.category === category);
+    return quoteList.filter((q) => q.category === category);
   };
 
+  // ランダムで名言を1件取得する
   const getRandomQuote = (list: Quote[]) => {
     if (list.length === 0) return null;
     return list[Math.floor(Math.random() * list.length)];
+  };
+
+  // カテゴリを選択したときの処理
+  const handlecategorySelect = (category: Category) => {
+    setCategory(category);
+    const filtered = getFilteredQuotes(category);
+    const randomQuote = getRandomQuote(filtered);
+    if (randomQuote) {
+      setQuote(randomQuote);
+    } else {
+      setQuote(null);
+    }
   };
 
   // ボタンが押されたときにリフレッシュ
@@ -34,10 +51,10 @@ export const QuotePage = () => {
     }
 
     const random = getRandomQuote(filtered);
-    if (!random) {
-      setQuote(null);
-    } else {
+    if (random) {
       setQuote(random);
+    } else {
+      setQuote(null);
     }
     return;
   };
@@ -48,7 +65,7 @@ export const QuotePage = () => {
         <h1 className="text-2xl font-bold mb-4">🧠 今日の名言</h1>
         {/* カテゴリの切り替え */}
         <div className="mb-4">
-          <CategorySelector category={category} onChange={setCategory} />
+          <CategorySelector onChange={handlecategorySelect} />
         </div>
         {/* 名言カード */}
         {quote && (
