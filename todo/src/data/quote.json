@@ -1,5 +1,5 @@
 [
-  { "text": "推しは推せるときに推せ", "author": "オタク界の金言", "category": "all" },
-  { "text": "諦めたらそこで試合終了ですよ？", "author": "安西先生", "category": "anime" },
-  { "text": "やらない善よりやる偽善", "author": "匿名", "category": "life" }
+  { "text": "推しは推せるときに推せ", "author": "オタク界の金言", "category": "all", "id": "all001" },
+  { "text": "諦めたらそこで試合終了ですよ？", "author": "安西先生", "category": "anime", "id": "anime001" },
+  { "text": "やらない善よりやる偽善", "author": "匿名", "category": "life", "id": "life001" }
 ]
