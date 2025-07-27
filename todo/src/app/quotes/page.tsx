@@ -8,6 +8,7 @@ export const QuotePage = () => {
   const [category, setCategory] = useState<Category>('all');
   const [quote, setQuote] = useState<Quote | null>(null);
   const [quoteList, setQuoteList] = useState<Quote[]>([]);
+  const [favorites, setFavorites] = useState<Quote[]>([]);
 
   // 初期化時にAPIから名言を取得する
   useEffect(() => {
@@ -17,6 +18,14 @@ export const QuotePage = () => {
       setQuoteList(data);
     };
     fetchQuotes();
+  }, []);
+
+  // ローカルストレージからお気に入りを取得
+  useEffect(() => {
+    const stored = localStorage.getItem('favorites');
+    if (stored) {
+      setFavorites(JSON.parse(stored));
+    }
   }, []);
 
   // ボタンで選んだカテゴリの名言をフィルタリングする
@@ -49,7 +58,6 @@ export const QuotePage = () => {
       setQuote(null);
       return;
     }
-
     const random = getRandomQuote(filtered);
     if (random) {
       setQuote(random);
@@ -57,6 +65,19 @@ export const QuotePage = () => {
       setQuote(null);
     }
     return;
+  };
+
+  /**
+   * someでお気に入りリストの中に存在するかを確認し、
+   * 存在する場合はfilterを使用してお気に入りリストから削除をし、
+   * 存在しない場合はお気に入りリストに追加をしてupdateをする
+   * @param quote
+   */
+  const toggleFavorite = (quote: Quote) => {
+    const exists = favorites.some((q) => q.id === quote.id);
+    const updated = exists ? favorites.filter((q) => q.id !== quote.id) : [...favorites, quote];
+    setFavorites(updated);
+    localStorage.setItem('favorites', JSON.stringify(updated));
   };
 
   return (
@@ -70,7 +91,14 @@ export const QuotePage = () => {
         {/* 名言カード */}
         {quote && (
           <div className="mb-4">
-            <QuoteCard text={quote.text} author={quote.author}></QuoteCard>
+            <QuoteCard
+              text={quote.text}
+              author={quote.author}
+              isFavorited={favorites.some((q) => q.id === quote.id)}
+              onToggleFavorite={() => {
+                toggleFavorite(quote);
+              }}
+            ></QuoteCard>
           </div>
         )}
         <button
