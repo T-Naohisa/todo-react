@@ -1,5 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import CategorySelector from 'components/CategorySelector';
 import { Category, Quote } from 'app/types/types';
 import { QuoteCard } from 'components/QuoteCard';
@@ -109,6 +110,7 @@ export const QuotePage = () => {
         >
           別のを表示
         </button>
+        <Link href="/favorites">お気に入り一覧へ</Link>
 
         <footer className="mt-8 text-sm text-gray-500">@ 2025 名言ジェネレーター</footer>
       </main>
