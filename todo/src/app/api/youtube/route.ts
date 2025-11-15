@@ -25,6 +25,10 @@ export const GET = async (request: Request) => {
   if (!playlistId) {
     return NextResponse.json({ error: 'playlistId is required' }, { status: 400 });
   }
+  const playlistIdPattern = /^[a-zA-Z0-9_-]{10,50}$/;
+  if (!playlistIdPattern.test(playlistId)) {
+    return NextResponse.json({ error: 'format error' }, { status: 400 });
+  }
 
   try {
     const data: YoutubeResponse = await featchYoutubePlaylist(playlistId);
